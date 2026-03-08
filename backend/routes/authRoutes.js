@@ -1,0 +1,20 @@
+const express = require('express');
+const { 
+    registerUser, 
+    loginUser, 
+    getProfile, 
+    updateUserProfile 
+} = require('../controllers/authController');
+const { protect } = require('../middlewares/authMiddleware');
+
+const router = express.Router();
+
+// Public Routes
+router.post('/register', registerUser);
+router.post('/login', loginUser);
+
+// Protected Routes (require a valid token)
+router.get('/profile', protect, getProfile);
+router.put('/profile', protect, updateUserProfile);
+
+module.exports = router;

@@ -1,17 +1,36 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 @import "tailwindcss";
+
 @theme {
     --font-display: "Inter", sans-serif;
     --breakpoint-3xl: 1920px;
     --color-primary: #FF9324;
-  }
+}
   
-  @layer base {
-    html {
-      font-family: var(--font-display);
+@layer base {
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    html, body {
+        font-family: var(--font-display);
+        scroll-behavior: smooth;
+        overflow-x: clip;
+        /* ✅ Let html/body naturally expand with content */
+        height: auto;
+        width: 100%;
     }
   
     body {
-      background-color: #fcfbfc;
+        background-color: #020617; 
+        color: #fcfbfc;
     }
-  }
+
+    #root {
+        display: flex;
+        flex-direction: column;
+        /* ✅ Remove min-height: 100vh — this was creating a second scroll container */
+    }
+}

@@ -119,7 +119,7 @@ const Navbar = () => {
       )}
     
     {/* Mobile Menu */}
-{isOpen && (
+  {isOpen && (
     <div className="lg-hidden bg-white border-t border-gray-100 animate-in slide-in-from-top duration-200">
         <nav className="px-4 py-4 space-y-1">
             {navLinks.map((link) => (

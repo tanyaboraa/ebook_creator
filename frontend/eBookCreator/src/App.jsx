@@ -11,7 +11,11 @@ import ProfilePage from "./pages/ProfilePage";
 
 const App = () => {
   return (
-    <div>
+    /* 1. Removed 'flex-col' to prevent child elements from stretching unnecessarily.
+       2. 'overflow-y-auto' combined with 'h-full' locks the scroll boundary.
+       3. Added 'selection:bg-purple-500/30' for a premium feel consistent with your glow.
+    */
+    <div className="relative min-h-screen bg-[#020617] w-full overflow-x-hidden selection:bg-purple-500/30">
       <Routes>
         {/* Public Routes */}
         <Route path="/" element={<LandingPage />} />

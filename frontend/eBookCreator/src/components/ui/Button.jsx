@@ -1,10 +1,17 @@
 import React from 'react'
 
-const Button = ({variant = "primary", size = "md", isLoading = false, children, icon: Icon,
-    ...props}) => {
+const Button = ({
+    variant = "primary",
+    size = "md",
+    isLoading = false,
+    children,
+    icon: Icon,
+    className = "",  // ✅ Destructured separately so it doesn't conflict in ...props
+    ...props
+}) => {
 
     const variants = {
-        primary: "bg-gradient-to-r from-violet-400 to-violet-500 hover:bg-violet-700 text-white",
+        primary: "bg-gradient-to-r from-violet-400 to-violet-500 hover:from-violet-500 hover:to-violet-600 text-white shadow-lg shadow-violet-500/30",
         secondary: "bg-gray-100 hover:bg-gray-200 text-gray-700",
         ghost: "bg-transparent hover:bg-gray-100 text-gray-700",
         danger: "bg-transparent hover:bg-red-50 text-red-600"
@@ -18,14 +25,14 @@ const Button = ({variant = "primary", size = "md", isLoading = false, children, 
 
     return (
         <button
-            className={`inline-flex items-center justify-center font-medium transition-all duration-200 ${variants[variant]} ${sizes[size]}`}
+            className={`inline-flex items-center justify-center font-medium transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed ${variants[variant]} ${sizes[size]} ${className}`}
             disabled={isLoading}
-            {...props}
+            {...props}  // ✅ className no longer in props so no duplicate/conflict
         >
             {isLoading ? (
                 <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />  {/* ✅ Fixed cut-off */}
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />  {/* ✅ Fixed cut-off */}
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                 </svg>
             ) : (
                 <>

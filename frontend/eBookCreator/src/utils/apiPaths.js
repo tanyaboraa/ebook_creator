@@ -1,3 +1,5 @@
+export const BASE_URL = "http://localhost:8000"; // ✅ Add this line at the top
+
 export const API_PATHS = {
     AUTH: {
       REGISTER: "/api/auth/register",
@@ -21,4 +23,4 @@ export const API_PATHS = {
       PDF: "/api/export",
       DOC: "/api/export",
     },
-  };
+};

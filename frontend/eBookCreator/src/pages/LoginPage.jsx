@@ -23,9 +23,19 @@ const LoginPage = () => {
         e.preventDefault();
         setIsLoading(true);
         try {
-
+            const response = await axiosInstance.post(API_PATHS.AUTH.LOGIN, formData);
+            const { token } = response.data;
+    
+            // Fetch profile to get user details
+            const profileResponse = await axiosInstance.get(API_PATHS.AUTH.GET_PROFILE, {
+                headers: { Authorization: `Bearer ${token}` },
+            });
+    
+            login(profileResponse.data, token);
+            toast.success("Login successful!");
+            navigate("/dashboard");
         } catch (error) {
-            localStorage.clear();
+            localStorage.clear()
             toast.error(error.response?.data?.message || "Login failed. Please try again.");
         } finally {
             setIsLoading(false);
@@ -33,50 +43,55 @@ const LoginPage = () => {
     };
 
     return (
-        <div className="">
-            <div className="">
-                <div className="">
-                    <div className="">
-                        <BookOpen className="" />
-                    </div>
-                    <h1 className="">Welcome Back</h1>
-                    <p className="">Sign in to continue to your eBook dashboard.</p>
+        <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center px-4">
+            
+            {/* Header */}
+            <div className="text-center mb-8">
+                <div className="w-16 h-16 bg-gradient-to-br from-violet-400 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg shadow-violet-500/30">
+                    <BookOpen className="w-8 h-8 text-white" />
                 </div>
+                <h1 className="text-3xl font-bold text-gray-900">Welcome Back</h1>
+                <p className="text-gray-500 mt-2">Sign in to continue to your eBook dashboard.</p>
+            </div>
 
-                <div className="">
-                    <form onSubmit={handleSubmit} className="">
-                        <InputField
-                            label="Email"
-                            name="email"
-                            type="email"
-                            placeholder="you@example.com"
-                            icon={Mail}
-                            value={formData.email}
-                            onChange={handleChange}
-                            required
-                        />
-                        <InputField
-                            label="Password"
-                            name="password"
-                            type="password"
-                            placeholder="••••••••"
-                            icon={Lock}
-                            value={formData.password}
-                            onChange={handleChange}
-                            required
-                        />  {/* ✅ Fixed: was } instead of /> */}
-                        <Button type="submit" isLoading={isLoading} className="">
-                            Sign In
-                        </Button>
-                    </form>
+            {/* Form Card */}
+            <div className="w-full max-w-md bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
+                <form onSubmit={handleSubmit} className="space-y-5">
+                    <InputField
+                        label="Email"
+                        name="email"
+                        type="email"
+                        placeholder="you@example.com"
+                        icon={Mail}
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
+                    />
+                    <InputField
+                        label="Password"
+                        name="password"
+                        type="password"
+                        placeholder="••••••••"
+                        icon={Lock}
+                        value={formData.password}
+                        onChange={handleChange}
+                        required
+                    />
+                    <Button
+                        type="submit"
+                        isLoading={isLoading}
+                        className="w-full"
+                    >
+                        Sign In
+                    </Button>
+                </form>
 
-                    <p className="">
-                        Don't have an account?{' '}
-                        <Link to="/signup" className="">
-                            Sign up
-                        </Link>
-                    </p>
-                </div>
+                <p className="text-center text-sm text-gray-500 mt-6">
+                    Don't have an account?{' '}
+                    <Link to="/signup" className="text-violet-600 font-medium hover:underline">
+                        Sign up
+                    </Link>
+                </p>
             </div>
         </div>
     )

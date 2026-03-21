@@ -8,21 +8,28 @@ const ProfileDropdown = ({ isOpen, onToggle, avatar, companyName, email, onLogou
             {/* Trigger Button */}
             <button
                 onClick={onToggle}
-                className="flex items-center gap-2 px-2 py-1.5 rounded-xl hover:bg-gray-100 transition-all duration-200 cursor-pointer"
+                className="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-gray-100 transition-all duration-200 cursor-pointer"
             >
                 {avatar ? (
                     <img
                         src={avatar}
                         alt="Avatar"
-                        className="w-8 h-8 rounded-xl object-cover"
+                        className="w-9 h-9 rounded-xl object-cover"
                     />
                 ) : (
-                    <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-violet-400 to-purple-500 flex items-center justify-center shadow-md">
+                    <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-violet-400 to-purple-500 flex items-center justify-center shadow-md">
                         <span className="text-white font-semibold text-sm">
                             {companyName?.charAt(0).toUpperCase()}
                         </span>
                     </div>
                 )}
+
+                {/* ✅ Name + email shown next to avatar */}
+                <div className="text-left hidden sm:block">
+                    <p className="text-sm font-semibold text-gray-900 leading-tight">{companyName}</p>
+                    <p className="text-xs text-gray-500 leading-tight">{email}</p>
+                </div>
+
                 <ChevronDown
                     className={`w-4 h-4 text-gray-500 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
                 />
@@ -81,6 +88,5 @@ const ProfileDropdown = ({ isOpen, onToggle, avatar, companyName, email, onLogou
         </div>
     )
 }
-
 
 export default ProfileDropdown
